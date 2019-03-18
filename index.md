@@ -1,17 +1,16 @@
 ARIMA (Autoregressive Integrated Moving Average) is a major tool used in time series analysis to attempt to forecast future values of a variable based on its present value. For this particular example, a monthly weather dataset from 1941 for Dublin, Ireland from the Irish weather broadcaster Met Eireann is used, and an ARIMA model is constructed to forecast maximum temperature readings using this time series.
 
-SARIMA
-Background
+## SARIMA Background
 
 The purpose of ARIMA is to determine the nature of the relationship between our residuals, which would provide our model with a certain degree of forecasting power. In the first instance, in order to conduct a time series analysis we must express our dataset in terms of logarithms. If our data is expressed solely in price terms, then this does not allow for continuous compounding of returns over time and will give misleading results.
 
 An ARIMA model consists of coordinates (p, d, q):
 
-    p stands for the number of autoregressive terms, i.e. the number of observations from past time values used to forecast future values. e.g. if the value of p is 2, then this means that two previous time observations in the series are being used to forecast the future trend.
-    d denotes the number of differences needed to make the time series stationary (i.e. one with a constant mean, variance, and autocorrelation). For instance, if d = 1, then it means that a first-difference of the series must be obtained to transform it into a stationary one.
-    q represents the moving average of the previous forecast errors in our model, or the lagged values of the error term. As an example, if q has a value of 1, then this means that we have one lagged value of the error term in the model.
+- p stands for the number of autoregressive terms, i.e. the number of observations from past time values used to forecast future values. e.g. if the value of p is 2, then this means that two previous time observations in the series are being used to forecast the future trend.
+- d denotes the number of differences needed to make the time series stationary (i.e. one with a constant mean, variance, and autocorrelation). For instance, if d = 1, then it means that a first-difference of the series must be obtained to transform it into a stationary one.
+- q represents the moving average of the previous forecast errors in our model, or the lagged values of the error term. As an example, if q has a value of 1, then this means that we have one lagged value of the error term in the model.
 
-Seasonality
+## Seasonality
 
 Seasonality is a significant concern when it comes to modelling time series. Seasonality is a particularly endemic feature of weather data – hence why many parts of the world have four seasons!
 
@@ -45,6 +44,7 @@ Using the aforementioned data, the following procedures are carried out in R:
     The predicted values are then compared to the test values (the latter 20% of the data) to determine the model accuracy.
     Finally, the Ljung-Box test is used to determine if the data is independently distributed or exhibits serial correlation.
 
+```
 > # Directories
 > setwd("directory")
 > mydata<- read.csv("mly532.csv")
@@ -98,8 +98,7 @@ In adf.test(lnweather) : p-value smaller than printed p-value
 > weatherarima <- ts(lnweather, start = c(1941,11), frequency = 12)
 > plot(weatherarima,type="l")
 > title("Maximum Air Temperature - Dublin")
-view raw
-weather1 hosted with ❤ by GitHub
+```
 
 Here are the ACF and PACF plots:
 
@@ -113,6 +112,7 @@ SARIMA
 
 Now, the time series is defined and the components are analysed:
 
+```
 > # Time series and seasonality
 > weatherarima <- ts(lnweather, start = c(1941,11), frequency = 12)
 > plot(weatherarima,type="l")
@@ -202,8 +202,7 @@ $type
 attr(,"class")
 [1] "decomposed.ts"
 > plot(components)
-view raw
-weather2 hosted with ❤ by GitHub
+```
 
 SARIMA
 
@@ -211,6 +210,7 @@ From the above, we see that there is a clear seasonal component present in the t
 
 To determine the ARIMA configuration, the auto.arima function in R is used.
 
+```
 > # ARIMA
 > fitlnweather<-auto.arima(weatherarima, trace=TRUE, test="kpss", ic="bic")
 
@@ -278,15 +278,17 @@ sar2 -0.3940417 -0.2572564
 .....
 [721] 15.5 13.9 13.8 13.0 14.8 19.2 18.2 21.6 23.7 21.9 20.8 18.7
 [733] 15.9 13.4 12.7 12.3 14.6 18.4 22.1 20.8 23.9
-view raw
-weather3 hosted with ❤ by GitHub
+```
 
 From the above, the best identified configuration on the basis of BIC is:
 
+```
 ARIMA(1,0,0)(2,1,0)[12]
+```
 
 Now that the configuration has been selected, the forecasts can be made. With the size of the test data being 186 observations, 186 forecasts are run accordingly.
 
+```
 > # Forecasted Values From ARIMA
 > forecastedvalues_ln=forecast(fitlnweather,h=186)
 > forecastedvalues_ln
@@ -297,8 +299,7 @@ Sep 2003       3.034242 2.869227 3.199257 2.781873 3.286610
 Dec 2018       2.605504 2.240256 2.970751 2.046906 3.164102
 Jan 2019       2.552441 2.187193 2.917688 1.993843 3.111039
 > plot(forecastedvalues_ln)
-view raw
-weather4 hosted with ❤ by GitHub
+```
 
 As previously plotted above, here is a visual representation of the forecast:
 
@@ -309,6 +310,7 @@ Now, the data needs to be converted back into its original format by calculating
     The percentage differences between the predictions and the actual data.
     The number of predictions with a percentage difference of lower than 10% from the actual.
 
+```
 > forecastedvaluesextracted=as.numeric(forecastedvalues_ln$mean)
 > finalforecastvalues=exp(forecastedvaluesextracted)
 > finalforecastvalues
@@ -317,11 +319,11 @@ Now, the data needs to be converted back into its original format by calculating
  .....
 [175] 12.64930 14.57672 18.09685 20.80818 21.45437 24.31657
 [181] 22.55312 20.65543 18.87354 15.45700 13.53804 12.83840
-view raw
-weather5 hosted with ❤ by GitHub
+```
 
 Now that the forecasted values have been calculated, we can compare this against the test data to forecast the percentage error:
 
+```
 > # Percentage Error
 > df<-data.frame(mydata$maxtp[742:927],finalforecastvalues)
 > col_headings<-c("Actual Weather","Forecasted Weather")
@@ -361,8 +363,7 @@ The following objects are masked from df (pos = 11):
 > frequency=as.data.frame(table(accuracy))
 > sum(frequency$Freq)/186
 [1] 0.7043011
-view raw
-weather6 hosted with ❤ by GitHub
+```
 
 From the above:
 
@@ -382,6 +383,7 @@ HA: Residuals do not follow a random pattern
 
 Note that the method for choosing a specific number of lags for Ljung-Box can be quite arbitrary. In this regard, we will run the Ljung-Box test with lags 5, 10, and 15. To run this test in R, we use the following functions:
 
+```
 > # Ljung-Box
 > Box.test(fitlnweather$resid, lag=5, type="Ljung-Box")
 
@@ -403,8 +405,7 @@ X-squared = 10.863, df = 10, p-value = 0.3683
 
 data:  fitlnweather$resid
 X-squared = 16.736, df = 15, p-value = 0.3349
-view raw
-weather7 hosted with ❤ by GitHub
+```
 
 We see that across lags 5, 10, and 15, the null hypothesis that the lags follow a random pattern cannot be rejected and therefore our ARIMA model is free of autocorrelation.
 Seasonal ARIMA Analysis with Python
@@ -415,6 +416,7 @@ In particular, the pyramid library will be used in a similar manner to auto.arim
 
 Firstly, let’s generate a heatmap using seaborn for the most recent four years of data to determine the maximum temperature dispersion by month:
 
+```
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -431,14 +433,14 @@ weather = dataset.pivot("month", "year", "maxtp")
 sns.heatmap(weather, annot=True, cmap="coolwarm")
 plt.title("Maximum Air Temperature: Dublin, Ireland")
 plt.show()
-view raw
-weather8 hosted with ❤ by GitHub
+```
 
 SARIMA
 
 Again, we see significant dispersion in the maximum temperature across months.
 Now, the relevant data processing is conducted and the time series is decomposed into its elements:
 
+```
 # Import Libraries
 import csv
 import math
@@ -471,11 +473,11 @@ plt.xlabel('Year')
 plt.ylabel('Maximum Temperature')
 plt.title('Maximum Air Temperature in Dublin, Ireland')
 pyplot.show()
-view raw
-weather9 hosted with ❤ by GitHub
+```
 
 SARIMA
 
+```
 decomposition=seasonal_decompose(series, model='multiplicative')
 trend=decomposition.trend
 seasonal=decomposition.seasonal
@@ -496,11 +498,11 @@ plt.plot(seasonal,color='#de00ff', label='Seasonality')
 plt.legend(loc='best')
 plt.tight_layout()
 plt.show()
-view raw
-weather10 hosted with ❤ by GitHub
+```
 
 SARIMA
 
+```
 from pyramid.arima.stationarity import ADFTest
 adf_test = ADFTest(alpha=0.05)
 adf_test.is_stationary(series)
@@ -511,13 +513,13 @@ plt.plot(train)
 plt.plot(test)
 plt.title("Training and Test Data")
 plt.show()
-view raw
-weather11 hosted with ❤ by GitHub
+```
 
 SARIMA
 
 Now, the ARIMA model is generated with pyramid in order to identify the best configuration:
 
+```
 >>> Arima_model=auto_arima(train, start_p=1, start_q=1, max_p=8, max_q=8, start_P=0, start_Q=0, max_P=8, max_Q=8, m=12, seasonal=True, trace=True, d=1, D=1, error_action='warn', suppress_warnings=True, random_state = 20, n_fits=30)
 Fit ARIMA: order=(1, 1, 1) seasonal_order=(0, 1, 0, 12); AIC=-667.202, BIC=-648.847, Fit time=3.710 seconds
 Fit ARIMA: order=(0, 1, 0) seasonal_order=(0, 1, 0, 12); AIC=-270.700, BIC=-261.522, Fit time=0.354 seconds
@@ -567,11 +569,11 @@ Prob(H) (two-sided):                  0.04   Kurtosis:                        12
 
 Warnings:
 [1] Covariance matrix calculated using the outer product of gradients (complex-step).
-view raw
-weather12 hosted with ❤ by GitHub
+```
 
 Now, a prediction can be made with the model for the next 185 periods, with the prediction data compared to the test data in a similar way as done with R.
 
+```
 >>> prediction=pd.DataFrame(Arima_model.predict(n_periods=185), index=test.index)
 >>> prediction.columns = ['Predicted_Temperature']
 >>> plt.figure(figsize=(15,10))
@@ -585,11 +587,11 @@ Now, a prediction can be made with the model for the next 185 periods, with the 
 >>> plt.legend(loc = 'upper center')
 <matplotlib.legend.Legend object at 0x7fbd6e887320>
 >>> plt.show()
-view raw
-weather14 hosted with ❤ by GitHub
+```
 
 SARIMA
 
+```
 >>> predictions=prediction['Predicted_Temperature']
 >>> predictions=np.exp(predictions)
 >>> test=np.exp(test)
@@ -602,8 +604,7 @@ SARIMA
 >>> accuracy=below10/all
 >>> accuracy
 0.4
-view raw
-weather15 hosted with ❤ by GitHub
+```
 
 However, note that in this instance, the accuracy came in at 40% (i.e. 40% of the predictions were within 10% accuracy of the actual), whereas the accuracy of the ARIMA model in R was over 70%.
 
@@ -611,11 +612,15 @@ Note that the SARIMA model generated in this instance was of a different configu
 
 Model configuration indicated in Python
 
+```
 SARIMAX(1, 1, 1)x(0, 1, 1, 12)
+```
 
 Model configuration indicated in R
 
+```
 SARIMAX(1, 0, 0)x(2, 1, 0, 12)
+```
 
 In this regard, it would appear that R did a better job than Python in identifying the correct configuration.
 
@@ -623,6 +628,7 @@ To validate this, the anlaysis is re-run again in Python, using the same ARIMA c
 
 Here is the analysis:
 
+```
 >>> # Import Libraries
 >>> import csv
 >>> import math
@@ -744,8 +750,7 @@ Warnings:
 >>> accuracy=below10/all
 >>> accuracy
 0.7081081081081081
-view raw
-weather16 hosted with ❤ by GitHub
+```
 
 It is observed that the updated configuration has raised the reported accuracy to over 70%, indicating that modifying the ARIMA model resulted in a significant improvement.
 
