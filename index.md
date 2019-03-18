@@ -1,3 +1,9 @@
+[Home](https://mgcodesandstats.github.io/) |
+[Time Series Consulting](https://mgcodesandstats.github.io/timeseriesconsulting/) |
+[Portfolio](https://mgcodesandstats.github.io/portfolio/) |
+[Terms and Conditions](https://mgcodesandstats.github.io/terms/) |
+[E-mail me](mailto:michael@michaeljgrogan.com)
+
 ARIMA (Autoregressive Integrated Moving Average) is a major tool used in time series analysis to attempt to forecast future values of a variable based on its present value. For this particular example, a monthly weather dataset from 1941 for Dublin, Ireland from the Irish weather broadcaster Met Eireann is used, and an ARIMA model is constructed to forecast maximum temperature readings using this time series.
 
 ## SARIMA Background
