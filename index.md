@@ -764,7 +764,7 @@ It is observed that the updated configuration has raised the reported accuracy t
 
 Again, a histogram illustrates that the majority of forecast errors lie below 20%:
 
-![article-21](article-21.png)
+![article-22](article-22.png)
 
 Conclusion
 
