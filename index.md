@@ -6,7 +6,7 @@
 
 ARIMA (Autoregressive Integrated Moving Average) is a major tool used in time series analysis to attempt to forecast future values of a variable based on its present value. For this particular example, a monthly weather dataset from 1941 for Dublin, Ireland from the Irish weather broadcaster Met Eireann is used, and an ARIMA model is constructed to forecast maximum temperature readings using this time series.
 
-![image-0](image-0.png)
+![article-0](article-0.png)
 
 ## SARIMA Background
 
@@ -29,10 +29,11 @@ For instance, the mean maximum recorded temperature in Dublin, Ireland for the y
 For instance, let’s take a look at ARIMA forecasts for maximum temperature both with and without seasonal components:
 Seasonal ARIMA
 
-SARIMA
+![article-1](article-1.png)
+
 Non-seasonal ARIMA
 
-SARIMA
+![article-2](article-2.png)
 
 In these instances, we can see that the non-seasonal ARIMA forecast shows a much wider dispersion and makes it more unlikely that the maximum temperature for each month will be forecasted accurately.
 
@@ -112,11 +113,11 @@ Here are the ACF and PACF plots:
 
 ACF
 
-SARIMA
+![article-2](article-2.png)
 
 PACF
 
-SARIMA
+![article-3](article-3.png)
 
 Now, the time series is defined and the components are analysed:
 
@@ -212,7 +213,7 @@ attr(,"class")
 > plot(components)
 ```
 
-SARIMA
+![article-4](article-4.png)
 
 From the above, we see that there is a clear seasonal component present in the time series. As a result, it is highly likely that the ARIMA model will need a seasonal component attached.
 
@@ -311,7 +312,7 @@ Jan 2019       2.552441 2.187193 2.917688 1.993843 3.111039
 
 As previously plotted above, here is a visual representation of the forecast:
 
-SARIMA
+![article-5](article-5.png)
 
 Now, the data needs to be converted back into its original format by calculating the exponent of the log predictions. These predictions are then compared against the test data to identify:
 
@@ -382,7 +383,7 @@ In the context of weather data, having 70% of predictions within 10% of the actu
 
 By plotting a histogram, we can see that a large majority of the forecasts are within 20% of the actual temperature values:
 
-SARIMA
+![article-6](article-6.png)
 
 Finally, a Ljung-Box test is conducted. Essentially, the test is being used to determine if the residuals of our time series follow a random pattern, or if there is a significant degree of non-randomness.
 
@@ -443,7 +444,7 @@ plt.title("Maximum Air Temperature: Dublin, Ireland")
 plt.show()
 ```
 
-SARIMA
+![article-7](article-7.png)
 
 Again, we see significant dispersion in the maximum temperature across months.
 Now, the relevant data processing is conducted and the time series is decomposed into its elements:
@@ -483,7 +484,7 @@ plt.title('Maximum Air Temperature in Dublin, Ireland')
 pyplot.show()
 ```
 
-SARIMA
+![article-8](article-8.png)
 
 ```
 decomposition=seasonal_decompose(series, model='multiplicative')
@@ -508,7 +509,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-SARIMA
+![article-9](article-9.png)
 
 ```
 from pyramid.arima.stationarity import ADFTest
@@ -597,7 +598,7 @@ Now, a prediction can be made with the model for the next 185 periods, with the 
 >>> plt.show()
 ```
 
-SARIMA
+![article-10](article-10.png)
 
 ```
 >>> predictions=prediction['Predicted_Temperature']
@@ -613,7 +614,6 @@ SARIMA
 >>> accuracy
 0.4
 ```
-
 However, note that in this instance, the accuracy came in at 40% (i.e. 40% of the predictions were within 10% accuracy of the actual), whereas the accuracy of the ARIMA model in R was over 70%.
 
 Note that the SARIMA model generated in this instance was of a different configuration to that generated in R.
@@ -764,7 +764,8 @@ It is observed that the updated configuration has raised the reported accuracy t
 
 Again, a histogram illustrates that the majority of forecast errors lie below 20%:
 
-SARIMA
+![article-11](article-11.png)
+
 Conclusion
 
 In this example, we have seen:
