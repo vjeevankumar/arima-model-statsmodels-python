@@ -29,11 +29,11 @@ For instance, the mean maximum recorded temperature in Dublin, Ireland for the y
 For instance, let’s take a look at ARIMA forecasts for maximum temperature both with and without seasonal components:
 Seasonal ARIMA
 
-![article-1](article-1.png)
+![article-2](article-2.png)
 
 Non-seasonal ARIMA
 
-![article-2](article-2.png)
+![article-3](article-3.png)
 
 In these instances, we can see that the non-seasonal ARIMA forecast shows a much wider dispersion and makes it more unlikely that the maximum temperature for each month will be forecasted accurately.
 
@@ -113,11 +113,11 @@ Here are the ACF and PACF plots:
 
 ACF
 
-![article-2](article-2.png)
+![article-4](article-4.png)
 
 PACF
 
-![article-3](article-3.png)
+![article-5](article-5.png)
 
 Now, the time series is defined and the components are analysed:
 
@@ -213,7 +213,7 @@ attr(,"class")
 > plot(components)
 ```
 
-![article-4](article-4.png)
+![article-6](article-6.png)
 
 From the above, we see that there is a clear seasonal component present in the time series. As a result, it is highly likely that the ARIMA model will need a seasonal component attached.
 
@@ -383,7 +383,7 @@ In the context of weather data, having 70% of predictions within 10% of the actu
 
 By plotting a histogram, we can see that a large majority of the forecasts are within 20% of the actual temperature values:
 
-![article-6](article-6.png)
+![article-21](article-21.png)
 
 Finally, a Ljung-Box test is conducted. Essentially, the test is being used to determine if the residuals of our time series follow a random pattern, or if there is a significant degree of non-randomness.
 
@@ -524,7 +524,7 @@ plt.title("Training and Test Data")
 plt.show()
 ```
 
-![article-11](article-11.png)
+![article-10](article-10.png)
 
 Now, the ARIMA model is generated with pyramid in order to identify the best configuration:
 
