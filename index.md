@@ -598,7 +598,7 @@ Now, a prediction can be made with the model for the next 185 periods, with the 
 >>> plt.show()
 ```
 
-![article-10](article-10.png)
+![article-11](article-11.png)
 
 ```
 >>> predictions=prediction['Predicted_Temperature']
@@ -764,7 +764,7 @@ It is observed that the updated configuration has raised the reported accuracy t
 
 Again, a histogram illustrates that the majority of forecast errors lie below 20%:
 
-![article-12](article-12.png)
+![article-21](article-21.png)
 
 Conclusion
 
