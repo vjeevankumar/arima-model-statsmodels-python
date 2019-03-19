@@ -524,7 +524,7 @@ plt.title("Training and Test Data")
 plt.show()
 ```
 
-SARIMA
+![article-11](article-11.png)
 
 Now, the ARIMA model is generated with pyramid in order to identify the best configuration:
 
@@ -764,7 +764,7 @@ It is observed that the updated configuration has raised the reported accuracy t
 
 Again, a histogram illustrates that the majority of forecast errors lie below 20%:
 
-![article-11](article-11.png)
+![article-12](article-12.png)
 
 Conclusion
 
