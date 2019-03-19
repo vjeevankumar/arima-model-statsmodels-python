@@ -1,5 +1,3 @@
-# https://datafai.com/auto-arima-using-pyramid-arima-python-package/
-
 # Import Libraries
 import csv
 import math
