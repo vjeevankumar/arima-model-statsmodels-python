@@ -1,5 +1,5 @@
 # Directories
-setwd("/media/veracrypt9/a_documents/group b/computing/data science/datasets")
+setwd("directory")
 mydata<- read.csv("mly532.csv")
 attach(mydata)
 weatherarima <- ts(mydata$maxtp, start = c(1941,11), frequency = 12)
@@ -65,9 +65,6 @@ Box.test(fitlnweather$resid, lag=5, type="Ljung-Box")
 Box.test(fitlnweather$resid, lag=10, type="Ljung-Box")
 Box.test(fitlnweather$resid, lag=15, type="Ljung-Box")
 
-#############################################################################
-
-# ETS (http://freerangestats.info/blog/2016/11/27/ets-friends)
 # Simple exponential smoothing with additive errors
 fit1 <- ets(weatherarima)
 fit1
