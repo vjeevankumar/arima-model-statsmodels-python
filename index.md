@@ -300,7 +300,6 @@ From the above, the best identified configuration on the basis of BIC is:
 Now that the configuration has been selected, the forecasts can be made. With the size of the test data being 186 observations, 186 forecasts are run accordingly.
 
 ```
-> # Forecasted Values From ARIMA
 > forecastedvalues_ln=forecast(fitlnweather,h=186)
 > forecastedvalues_ln
          Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
@@ -390,6 +389,7 @@ By plotting a histogram, we can see that a large majority of the forecasts are w
 Finally, a Ljung-Box test is conducted. Essentially, the test is being used to determine if the residuals of our time series follow a random pattern, or if there is a significant degree of non-randomness.
 
 **- H0: Residuals follow a random pattern**
+
 **- HA: Residuals do not follow a random pattern**
 
 Note that the method for choosing a specific number of lags for Ljung-Box can be quite arbitrary. In this regard, we will run the Ljung-Box test with lags 5, 10, and 15. To run this test in R, we use the following functions:
