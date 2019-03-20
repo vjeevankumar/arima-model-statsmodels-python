@@ -50,12 +50,12 @@ with p = non-seasonal AR order, d = non-seasonal differencing, q = non-seasonal 
 
 Using the aforementioned data, the following procedures are carried out in R:
 
-1. The time series is converted into logarithmic format in order to smooth the volatility in the series.
-2. Autocorrelation and Partial Autocorrelation (ACF and PACF) plots are generated to detect the presence of stationarity, and a Dickey-Fuller test is conducted to validate the same.
-3. The time series is decomposed in order to examine the seasonal trend in isolation.
-4. auto.arima is then used to examine the best ARIMA configuration for the training data (the first 80% of all temperature data).
-5. The predicted values are then compared to the test values (the latter 20% of the data) to determine the model accuracy.
-6. Finally, the Ljung-Box test is used to determine if the data is independently distributed or exhibits serial correlation.
+- The time series is converted into logarithmic format in order to smooth the volatility in the series.
+- Autocorrelation and Partial Autocorrelation (ACF and PACF) plots are generated to detect the presence of stationarity, and a Dickey-Fuller test is conducted to validate the same.
+- The time series is decomposed in order to examine the seasonal trend in isolation.
+- auto.arima is then used to examine the best ARIMA configuration for the training data (the first 80% of all temperature data).
+- The predicted values are then compared to the test values (the latter 20% of the data) to determine the model accuracy.
+- Finally, the Ljung-Box test is used to determine if the data is independently distributed or exhibits serial correlation.
 
 ```
 > # Directories
@@ -388,9 +388,8 @@ By plotting a histogram, we can see that a large majority of the forecasts are w
 
 Finally, a Ljung-Box test is conducted. Essentially, the test is being used to determine if the residuals of our time series follow a random pattern, or if there is a significant degree of non-randomness.
 
-**- H0: Residuals follow a random pattern**
-
-**- HA: Residuals do not follow a random pattern**
+- H0: Residuals follow a random pattern
+- HA: Residuals do not follow a random pattern
 
 Note that the method for choosing a specific number of lags for Ljung-Box can be quite arbitrary. In this regard, we will run the Ljung-Box test with lags 5, 10, and 15. To run this test in R, we use the following functions:
 
