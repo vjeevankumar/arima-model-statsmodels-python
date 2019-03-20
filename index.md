@@ -295,7 +295,7 @@ sar2 -0.3940417 -0.2572564
 
 From the above, the best identified configuration on the basis of BIC is:
 
-```ARIMA(1,0,0)(2,1,0)[12]```
+**ARIMA(1,0,0)(2,1,0)[12]**
 
 Now that the configuration has been selected, the forecasts can be made. With the size of the test data being 186 observations, 186 forecasts are run accordingly.
 
