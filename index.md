@@ -4,6 +4,8 @@
 [Terms and Conditions](https://mgcodesandstats.github.io/terms/) |
 [E-mail me](mailto:michael@michaeljgrogan.com)
 
+# SARIMA: Forecasting seasonal data with Python and R
+
 ARIMA (Autoregressive Integrated Moving Average) is a major tool used in time series analysis to attempt to forecast future values of a variable based on its present value. For this particular example, a monthly weather dataset from 1941 for Dublin, Ireland from the Irish weather broadcaster Met Eireann is used, and an ARIMA model is constructed to forecast maximum temperature readings using this time series.
 
 ![article-0](article-0.png)
@@ -27,11 +29,12 @@ When seasonality is not accounted for, one risks erroneous forecasts of the data
 For instance, the mean maximum recorded temperature in Dublin, Ireland for the year 2018 was 18.9°C. However, with a low of 11.9°C and a high of 26.7°C, the dispersion around this mean is significant and influenced by seasonality.
 
 For instance, let’s take a look at ARIMA forecasts for maximum temperature both with and without seasonal components:
-Seasonal ARIMA
+
+### Seasonal ARIMA
 
 ![article-2](article-2.png)
 
-Non-seasonal ARIMA
+### Non-seasonal ARIMA
 
 ![article-3](article-3.png)
 
@@ -39,10 +42,11 @@ In these instances, we can see that the non-seasonal ARIMA forecast shows a much
 
 In this regard, ARIMA needs to be modified in order to include a seasonal component.
 
-ARIMA(p, d, q) × (P, D, Q)S
+```ARIMA(p, d, q) × (P, D, Q)S```
 
 with p = non-seasonal AR order, d = non-seasonal differencing, q = non-seasonal MA order, P = seasonal AR order, D = seasonal differencing, Q = seasonal MA order, and S = time span of repeating seasonal pattern.
-Seasonal ARIMA Analysis with R
+
+## Seasonal ARIMA Analysis with R
 
 Using the aforementioned data, the following procedures are carried out in R:
 
@@ -111,11 +115,11 @@ In adf.test(lnweather) : p-value smaller than printed p-value
 
 Here are the ACF and PACF plots:
 
-ACF
+**ACF**
 
 ![article-4](article-4.png)
 
-PACF
+**PACF**
 
 ![article-5](article-5.png)
 
@@ -291,9 +295,7 @@ sar2 -0.3940417 -0.2572564
 
 From the above, the best identified configuration on the basis of BIC is:
 
-```
-ARIMA(1,0,0)(2,1,0)[12]
-```
+```ARIMA(1,0,0)(2,1,0)[12]```
 
 Now that the configuration has been selected, the forecasts can be made. With the size of the test data being 186 observations, 186 forecasts are run accordingly.
 
@@ -417,7 +419,8 @@ X-squared = 16.736, df = 15, p-value = 0.3349
 ```
 
 We see that across lags 5, 10, and 15, the null hypothesis that the lags follow a random pattern cannot be rejected and therefore our ARIMA model is free of autocorrelation.
-Seasonal ARIMA Analysis with Python
+
+## Seasonal ARIMA Analysis with Python
 
 Now, a similar analysis will be conducted on the data in Python.
 
@@ -618,13 +621,13 @@ However, note that in this instance, the accuracy came in at 40% (i.e. 40% of th
 
 Note that the SARIMA model generated in this instance was of a different configuration to that generated in R.
 
-Model configuration indicated in Python
+**Model configuration indicated in Python**
 
 ```
 SARIMAX(1, 1, 1)x(0, 1, 1, 12)
 ```
 
-Model configuration indicated in R
+**Model configuration indicated in R**
 
 ```
 SARIMAX(1, 0, 0)x(2, 1, 0, 12)
@@ -766,7 +769,7 @@ Again, a histogram illustrates that the majority of forecast errors lie below 20
 
 ![article-22](article-22.png)
 
-Conclusion
+## Conclusion
 
 In this example, we have seen:
 
