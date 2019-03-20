@@ -17,7 +17,7 @@ from statsmodels.tsa.arima_model import ARIMA
 from statsmodels.tsa.seasonal import seasonal_decompose
 
 import os;
-path="/media/veracrypt9/a_documents/group b/computing/data science/datasets"
+path="directory"
 os.chdir(path)
 os.getcwd()
 
